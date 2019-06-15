@@ -11,7 +11,9 @@ class App extends React.Component {
     this.state = {
       pokemonURLS: [],
       pokemonList: [],
+      filterByName: "",
     }
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,16 +27,22 @@ class App extends React.Component {
           })
         }
       }
-      
-      ))
+    ))
+  }
+
+  handleInputChange(event) {
+    const inputValue = event.currentTarget.value;
+    this.setState({ filterByName: inputValue });
   }
 
   render() {
     return (
       <main>
+        <label htmlFor="searchPokemon">Busca tu Pokemon</label>
+        <input type="text" id="searchPokemon" name="searchPokeon" value={this.state.filterByName} onChange={this.handleInputChange}/>
         <Switch>
           <Route exact path="/" render={routerProps => (
-            <PokeList list={this.state.pokemonList}/> 
+            <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.includes(this.state.filterByName))}/> 
           )}/>
           <Route path="/pokemon/:id" render={routerProps => {
             const pokemonSelected = this.state.pokemonList.find(pokemon => parseInt(pokemon.id) === parseInt(routerProps.match.params.id));
