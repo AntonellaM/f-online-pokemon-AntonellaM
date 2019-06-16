@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
@@ -32,5 +33,9 @@ const Pokemon = (props) => {
     </div>
   );
 }
+
+Pokemon.propTypes = {
+  pokemon: PropTypes.object,
+} 
  
 export default Pokemon;

@@ -37,7 +37,7 @@ class App extends React.Component {
 
   render() {
     return (
-        <main class="main">
+        <main className="main">
           <Switch>
             <Route exact path="/" render={routerProps => (
               <React.Fragment>
