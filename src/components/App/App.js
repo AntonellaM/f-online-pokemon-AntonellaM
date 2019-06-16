@@ -45,7 +45,7 @@ class App extends React.Component {
                   <label htmlFor="searchPokemon">Busca tu Pokemon</label>
                   <input type="text" id="searchPokemon" name="searchPokeon" value={this.state.filterByName} onChange={this.handleInputChange}/>
                 </section>
-                <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.includes(this.state.filterByName))}/> 
+                <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.toUpperCase().includes(this.state.filterByName.toUpperCase()))}/> 
               </React.Fragment>
             )}/>
             <Route path="/pokemon/:id" render={routerProps => {
