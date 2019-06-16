@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { pokemonURLS } from '../../services/getPokemonURLS';
 import PokeList from '../PokeList/PokeList';
 import Pokemon from '../Pokemon/Pokemon';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -37,23 +37,27 @@ class App extends React.Component {
 
   render() {
     return (
-      <main>
-        <label htmlFor="searchPokemon">Busca tu Pokemon</label>
-        <input type="text" id="searchPokemon" name="searchPokeon" value={this.state.filterByName} onChange={this.handleInputChange}/>
-        <Switch>
-          <Route exact path="/" render={routerProps => (
-            <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.includes(this.state.filterByName))}/> 
-          )}/>
-          <Route path="/pokemon/:id" render={routerProps => {
-            const pokemonSelected = this.state.pokemonList.find(pokemon => parseInt(pokemon.id) === parseInt(routerProps.match.params.id));
-            return pokemonSelected !== undefined ?
-            <Pokemon pokemon={pokemonSelected}/> :
-            <div className="loader__container">
-              <div class="lds-ripple"><div></div><div></div></div>
-            </div>
-          }}/>
-        </Switch>
-      </main>
+        <main class="main">
+          <Switch>
+            <Route exact path="/" render={routerProps => (
+              <React.Fragment>
+                <section className="search">
+                  <label htmlFor="searchPokemon">Busca tu Pokemon</label>
+                  <input type="text" id="searchPokemon" name="searchPokeon" value={this.state.filterByName} onChange={this.handleInputChange}/>
+                </section>
+                <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.includes(this.state.filterByName))}/> 
+              </React.Fragment>
+            )}/>
+            <Route path="/pokemon/:id" render={routerProps => {
+              const pokemonSelected = this.state.pokemonList.find(pokemon => parseInt(pokemon.id) === parseInt(routerProps.match.params.id));
+              return pokemonSelected !== undefined ?
+              <Pokemon pokemon={pokemonSelected}/> :
+              <div className="loader__container">
+                <div class="lds-ripple"><div></div><div></div></div>
+              </div>
+            }}/>
+          </Switch>
+        </main>
     );
   }
 }

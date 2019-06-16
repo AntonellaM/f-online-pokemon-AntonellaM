@@ -6,14 +6,18 @@ const PokeList = (props) => {
   return (
     <main>
       <section className="pokemon-results">
-        <ul class="pokemon-results__list">
+        <ul className="pokemon-results__list">
           {props.list.map((pokemon, index) =>
-            <Link to={`/pokemon/${pokemon.id}`}>
-              <li class="pokemon-card" key={index}>
-                <div className="pokemon-details__photo" style={{backgroundImage: `url(${pokemon.sprites.front_default})`}}></div>
-                <p>ID/{pokemon.id}</p>
-                <h1>{pokemon.forms[0].name}</h1>
-                {pokemon.types.map(type => <p>{type.type.name}</p>)}
+            <Link className="pokemon-card__link" to={`/pokemon/${pokemon.id}`}>
+              <li className="pokemon-card" key={index}>
+                <div className="pokemon-card__header">
+                  <div className="photo" style={{backgroundImage: `url(${pokemon.sprites.front_default})`}}></div>
+                  <p>ID/{pokemon.id}</p>
+                </div>
+                <h1 className="pokemon-card__name">{pokemon.forms[0].name}</h1>
+                <div className="pokemon-card__types">
+                {pokemon.types.map(type => <p className="type">{type.type.name}</p>)}
+                </div>
               </li>
             </Link>
           )}

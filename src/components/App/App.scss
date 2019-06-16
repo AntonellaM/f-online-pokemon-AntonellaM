@@ -1,0 +1,15 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px;
+  font-size: 20px;
+}
+
+.pokemon-results__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
