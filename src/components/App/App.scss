@@ -1,3 +1,12 @@
+.main {
+  min-height: 100vh;
+  background-image: url('../../images/background-home.jpg');
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 .search {
   display: flex;
   flex-direction: column;
