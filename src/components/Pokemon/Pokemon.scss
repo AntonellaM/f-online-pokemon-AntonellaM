@@ -33,6 +33,7 @@
 
   &__name {
     text-transform: capitalize;
+    font-weight: 700;
   }
 
   &__photo {
@@ -76,6 +77,7 @@
 
     .characteristic__name {
       margin: auto 15px auto 0;
+      text-transform: capitalize;
     }
 
   }
@@ -83,4 +85,10 @@
 
 .progress {
   width: 120px;
+}
+
+.progress-bar {
+  align-items: flex-start;
+  padding-left: 5px;
+  background-color: rgb(77, 72, 72);
 }
