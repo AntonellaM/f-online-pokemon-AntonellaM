@@ -9,7 +9,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemonURLS: [],
       pokemonList: [],
       filterByName: "",
     }
@@ -19,18 +18,39 @@ class App extends React.Component {
   componentDidMount() {
     pokemonURLS()
       .then(data => {
-        let list = data.results;
+        const list = data.results;
+        let pokemons = [];
         for (const pokemonData of list) {
-          let pokemon = {};
+          let pokemon = {
+            data: {},
+            evolvesFrom: '',
+            evolvesTo: '',
+          };
           fetch(`${pokemonData.url}`)
             .then(res => res.json())
-            .then(details => pokemon = details)
+            .then(details => {
+              pokemon.data = details;
+              if (pokemon.data.species !== null) {
+                fetch(`${pokemon.data.species.url}`)
+                .then(res => res.json())
+                .then(species => {
+                  pokemon.evolvesFrom = species.evolves_from_species !== null ?species.evolves_from_species.name : 'none';
+                  if (species.evolution_chain.url !== null) {
+                    fetch(`${species.evolution_chain.url}`)
+                    .then(res => res.json())
+                    .then(evolution => {
+                      pokemon.evolvesTo = evolution.chain.evolves_to[0].evolves_to[0] !== undefined ? evolution.chain.evolves_to[0].evolves_to[0].species.name : 'none';
+                      pokemons.push(pokemon)
+                    })
+                  }
+                })
+              }
+            })
         }
+        console.log(pokemons);
+        this.setState({ pokemonList: pokemons })
       }
-    )).then(this.state.pokemonList.map(pokemon => fetch(`${pokemon}`))
-    .then(res => res.json())
-    .then(data => data.evolves_from_species !== null ? console.log(data.evolves_from_species.name) : console.log('vacío'))))
-    
+    )
   }
 
   handleInputChange(event) {
@@ -48,7 +68,7 @@ class App extends React.Component {
                   <label htmlFor="searchPokemon">Busca tu Pokemon</label>
                   <input type="text" id="searchPokemon" name="searchPokeon" value={this.state.filterByName} onChange={this.handleInputChange}/>
                 </section>
-                <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.name.toUpperCase().includes(this.state.filterByName.toUpperCase()))}/> 
+                <PokeList list={this.state.pokemonList.filter(pokemon => pokemon.data.name.toUpperCase().includes(this.state.filterByName.toUpperCase()))}/> 
               </React.Fragment>
             )}/>
             <Route path="/pokemon/:id" render={routerProps => {
@@ -65,29 +85,3 @@ class App extends React.Component {
   }
 }
 export default App;
-
-.then(response => response.json())
-
-      .then(data => {
-        let list = data.results;
-        for (let i = 0; i < countPokemons; i++) {
-          let pokemon = {}
-          fetch(list[i].url)
-            .then(response => {
-              return response.json();
-            })
-            .then(data => {
-              pokemon = data;
-              return data;
-            })
-            .then(details => {
-              fetch(details.species.url)
-                .then(data => data.json())
-                .then(data => {
-                  pokemon.evolves_from = data.evolves_from_species !== null ? data.evolves_from_species.name : null;
-                  this.setState({ pokemonList: [...this.state.pokemonList, pokemon] })
-                })
-            })
-        }
-      })
-  }
