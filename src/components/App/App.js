@@ -18,16 +18,19 @@ class App extends React.Component {
 
   componentDidMount() {
     pokemonURLS()
-      .then(data => this.setState({ pokemonURLS: data.results },() => {
-        for (const pokemonData of this.state.pokemonURLS) {
-          fetch(`${pokemonData.url}`).then(res => res.json()).then(details => {
-            this.state.pokemonList.push(details);
-            let newPokemonList = this.state.pokemonList;
-            this.setState({ pokemonList: newPokemonList })
-          })
+      .then(data => {
+        let list = data.results;
+        for (const pokemonData of list) {
+          let pokemon = {};
+          fetch(`${pokemonData.url}`)
+            .then(res => res.json())
+            .then(details => pokemon = details)
         }
       }
-    ))
+    )).then(this.state.pokemonList.map(pokemon => fetch(`${pokemon}`))
+    .then(res => res.json())
+    .then(data => data.evolves_from_species !== null ? console.log(data.evolves_from_species.name) : console.log('vacío'))))
+    
   }
 
   handleInputChange(event) {
@@ -53,7 +56,7 @@ class App extends React.Component {
               return pokemonSelected !== undefined ?
               <Pokemon pokemon={pokemonSelected}/> :
               <div className="loader__container">
-                <div class="lds-ripple"><div></div><div></div></div>
+                <div className="lds-ripple"><div></div><div></div></div>
               </div>
             }}/>
           </Switch>
@@ -62,3 +65,29 @@ class App extends React.Component {
   }
 }
 export default App;
+
+.then(response => response.json())
+
+      .then(data => {
+        let list = data.results;
+        for (let i = 0; i < countPokemons; i++) {
+          let pokemon = {}
+          fetch(list[i].url)
+            .then(response => {
+              return response.json();
+            })
+            .then(data => {
+              pokemon = data;
+              return data;
+            })
+            .then(details => {
+              fetch(details.species.url)
+                .then(data => data.json())
+                .then(data => {
+                  pokemon.evolves_from = data.evolves_from_species !== null ? data.evolves_from_species.name : null;
+                  this.setState({ pokemonList: [...this.state.pokemonList, pokemon] })
+                })
+            })
+        }
+      })
+  }
