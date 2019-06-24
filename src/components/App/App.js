@@ -9,8 +9,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemonList: [],
       filterByName: "",
+      pokemonList: []
     }
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -47,10 +47,11 @@ class App extends React.Component {
               }
             })
         }
-        console.log(pokemons);
-        this.setState({ pokemonList: pokemons })
-      }
-    )
+        console.log(this.state.pokemonList)
+        this.setState({ pokemonList: pokemons }, () => {
+          console.log(this.state.pokemonList);
+        })
+      })
   }
 
   handleInputChange(event) {
@@ -59,6 +60,7 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
         <main className="main">
           <Switch>
@@ -72,7 +74,7 @@ class App extends React.Component {
               </React.Fragment>
             )}/>
             <Route path="/pokemon/:id" render={routerProps => {
-              const pokemonSelected = this.state.pokemonList.find(pokemon => parseInt(pokemon.id) === parseInt(routerProps.match.params.id));
+              const pokemonSelected = this.state.pokemonList.find(pokemon => parseInt(pokemon.data.id) === parseInt(routerProps.match.params.id));
               return pokemonSelected !== undefined ?
               <Pokemon pokemon={pokemonSelected}/> :
               <div className="loader__container">

@@ -14,27 +14,33 @@ const Pokemon = (props) => {
       </Link>
       <div className="pokemon-details">
         <div className="pokemon-details__header">
-          <div className="pokemon-details__photo" style={{backgroundImage: `url(${props.pokemon.sprites.front_default})`}}></div>
-          <p>ID/{props.pokemon.id}</p>
+          <div className="pokemon-details__photo" style={{backgroundImage: `url(${props.pokemon.data.sprites.front_default})`}}></div>
+          <p>ID/{props.pokemon.data.id}</p>
         </div>
         <div className="pokemon-details__body">
-          <h1 className="pokemon-details__name">{props.pokemon.forms[0].name}</h1>
+          <h1 className="pokemon-details__name">{props.pokemon.data.forms[0].name}</h1>
           <div className="pokemon-details__types">
-            {props.pokemon.types.map((type, index) => <p className="type" key={index}>{type.type.name}</p>)}
+            {props.pokemon.data.types.map((type, index) => <p className="type" key={index}>{type.type.name}</p>)}
           </div>
           <div>
             <h2>Height:</h2>
-            <p>{props.pokemon.height}</p>
+            <p>{props.pokemon.data.height}</p>
           </div>
           <div>
             <h2>Weight:</h2>
-            <p>{props.pokemon.weight}</p>
+            <p>{props.pokemon.data.weight}</p>
           </div>
           <div>
             <h2>Abilities:</h2>
-            {props.pokemon.abilities.map((abilities, index) => <p key={index}>{abilities.ability.name}</p>)}
+            {props.pokemon.data.abilities.map((abilities, index) => <p key={index}>{abilities.ability.name}</p>)}
+          </div>
+          <div className="pokemon-card__evolutions">
+            <p>Evolves from:</p>
+            <p>{props.pokemon.evolvesFrom}</p>
+            <p>Evolves to:</p>
+            <p>{props.pokemon.evolvesTo}</p>
           </div>         
-          {props.pokemon.stats.map((stats, index) => 
+          {props.pokemon.data.stats.map((stats, index) => 
           <div className="pokemon-details__characteristics" key={index}>
             <p className="characteristic__name">{stats.stat.name}</p>
             <ProgressBar className="characteristic__bar" now={stats.base_stat} label={`${stats.base_stat}%`} />
