@@ -20,10 +20,14 @@ const PokeList = (props) => {
                   {pokemon.data.types.map((type, index) => <p key={index} className="type">{type.type.name}</p>)}
                   </div>
                   <div className="pokemon-card__evolutions">
-                    <p>Evolves from:</p>
-                    <p>{pokemon.evolvesFrom}</p>
-                    <p>Evolves to:</p>
-                    <p>{pokemon.evolvesTo}</p>
+                    <div className="pokemon-card__evolutions--from">
+                      <p className="pokemon-card__evolutions--title">Evolves from:</p>
+                      <p className="pokemon-card__evolutions--result">{pokemon.evolvesFrom}</p>
+                    </div>
+                    <div className="pokemon-card__evolutions--to">
+                      <p className="pokemon-card__evolutions--title">Evolves to:</p>
+                      <p className="pokemon-card__evolutions--result">{pokemon.evolvesTo}</p>
+                    </div>
                   </div>
                 </li>
               </Link>

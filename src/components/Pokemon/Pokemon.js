@@ -22,24 +22,20 @@ const Pokemon = (props) => {
           <div className="pokemon-details__types">
             {props.pokemon.data.types.map((type, index) => <p className="type" key={index}>{type.type.name}</p>)}
           </div>
-          <div>
-            <h2>Height:</h2>
-            <p>{props.pokemon.data.height}</p>
-          </div>
-          <div>
-            <h2>Weight:</h2>
-            <p>{props.pokemon.data.weight}</p>
-          </div>
-          <div>
-            <h2>Abilities:</h2>
-            {props.pokemon.data.abilities.map((abilities, index) => <p key={index}>{abilities.ability.name}</p>)}
-          </div>
-          <div className="pokemon-card__evolutions">
-            <p>Evolves from:</p>
-            <p>{props.pokemon.evolvesFrom}</p>
-            <p>Evolves to:</p>
-            <p>{props.pokemon.evolvesTo}</p>
-          </div>         
+          <div className="pokemon-details__data">
+            <div className="pokemon-details__data--height">
+              <h2 className="pokemon-details__data--title">Height:</h2>
+              <p className="pokemon-details__data--result">{props.pokemon.data.height}</p>
+            </div>
+            <div className="pokemon-details__data--weight">
+              <h2 className="pokemon-details__data--title">Weight:</h2>
+              <p className="pokemon-details__data--result">{props.pokemon.data.weight}</p>
+            </div>
+            <div className="pokemon-details__data--abilities">
+              <h2 className="pokemon-details__data--title">Abilities:</h2>
+              {props.pokemon.data.abilities.map((abilities, index) => <p key={index} className="pokemon-details__data--result">{abilities.ability.name}</p>)}
+            </div>
+          </div>        
           {props.pokemon.data.stats.map((stats, index) => 
           <div className="pokemon-details__characteristics" key={index}>
             <p className="characteristic__name">{stats.stat.name}</p>
@@ -47,8 +43,18 @@ const Pokemon = (props) => {
           </div>
           )}
         </div>
-      </div>   
-    </div>
+        <div className="pokemon-details__evolutions">
+            <div className="pokemon-details__evolutions--from">
+              <p className="pokemon-details__evolutions--title">Evolves from:</p>
+              <p className="pokemon-details__evolutions--result">{props.pokemon.evolvesFrom}</p>
+            </div>
+            <div className="pokemon-details__evolutions--to">
+              <p  className="pokemon-details__evolutions--title">Evolves to:</p>
+              <p  className="pokemon-details__evolutions--result">{props.pokemon.evolvesTo}</p>
+            </div>
+          </div> 
+      </div>
+    </div>   
   );
 }
 

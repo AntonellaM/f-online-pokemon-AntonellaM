@@ -67,5 +67,23 @@
         text-transform: uppercase;
       }
     }
+
+    &__evolutions {
+      width: 100%;
+      padding: 15px;  
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      &--title {
+        margin: 5px 0;
+      }
+
+      &--result {
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
   }
 }
